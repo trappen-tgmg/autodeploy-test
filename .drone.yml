@@ -6,8 +6,34 @@ pipeline:
     commands:
       - echo "test"
       - docker build -t trappentgmg/timr:$DRONE_COMMIT_SHA .
+
   test:
     image: trappentgmg/timr:${DRONE_COMMIT_SHA}
     commands:
       - pip3 install pytest
       - python3 -m pytest
+
+  publish:
+    image: docker 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker login -u trappentgmg -p ${DOCKER_PASSWORD}
+      - docker push trappentgmg/timr:${DRONE_COMMIT_SHA}
+      - docker push trappentgmg/timr:unstable
+
+  deploy_staging:
+    image: kroniak/ssh-client
+    commands:
+      - echo "hi"
+
+  cleanup:
+    image: docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker rm trappentgmg/timr:$DRONE_COMMIT_SHA | true
+      - docker rm trappentgmg/timr:unstable | true
+      - docker logout | true
+    when:
+      status: [success, failure]
