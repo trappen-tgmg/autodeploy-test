@@ -7,7 +7,7 @@ pipeline:
       - echo "test"
       - docker build -t trappentgmg/timr:$DRONE_COMMIT_SHA .
   test:
-    image: trappentgmg/timr:$$COMMIT
+    image: trappentgmg/timr:${DRONE_COMMIT_SHA}
     commands:
       - pip3 install pytest
       - python3 -m pytest
