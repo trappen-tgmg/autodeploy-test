@@ -20,8 +20,8 @@ pipeline:
     secrets:
       - docker_password
     commands:
-      - docker login -u trappentgmg -p ${DOCKER_PASSWORD}
-      - docker push trappentgmg/timr:${DRONE_COMMIT_SHA}
+      - docker login -u trappentgmg -p $DOCKER_PASSWORD
+      - docker push trappentgmg/timr:$DRONE_COMMIT_SHA
       - docker push trappentgmg/timr:unstable
 
   deploy_staging:
