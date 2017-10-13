@@ -5,7 +5,7 @@ pipeline:
       - /var/run/docker.sock:/var/run/docker.sock 
     commands:
       - echo "test"
-      - docker build -t trappentgmg/timr:$DRONE_COMMIT_SHA .
+      - docker build -t trappentgmg/timr:$DRONE_COMMIT_SHA . --no-cache
 
   test:
     image: trappentgmg/timr:${DRONE_COMMIT_SHA}
