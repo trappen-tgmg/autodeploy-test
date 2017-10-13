@@ -27,6 +27,9 @@ pipeline:
 
   deploy_staging:
     image: kroniak/ssh-client
+    when:
+      event: deployment
+      environment: staging
     commands:
       - echo "hi"
 
