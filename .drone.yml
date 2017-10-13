@@ -22,6 +22,7 @@ pipeline:
     commands:
       - docker login -u trappentgmg -p $DOCKER_PASSWORD
       - docker push trappentgmg/timr:$DRONE_COMMIT_SHA
+      - docker tag trappentgmg/timr:$DRONE_COMMIT_SHA trappentgmg/timr:unstable
       - docker push trappentgmg/timr:unstable
 
   deploy_staging:
