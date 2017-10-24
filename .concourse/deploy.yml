@@ -37,7 +37,7 @@ params:
      -----END RSA PRIVATE KEY-----
 
 inputs:
-  - name: pull-request
+  - name: git-repo
 
 run:
   path: /bin/bash
