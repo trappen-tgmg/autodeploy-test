@@ -6,6 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     # comments are important
+    # yes
     return "The time is %s" % datetime.now().strftime("%d.%m.%Y %H:%M")
 
 if __name__ == "__main__":
