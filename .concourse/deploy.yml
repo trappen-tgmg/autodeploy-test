@@ -45,4 +45,5 @@ run:
     - "-c"
     - |
          echo $SSH_SECRET_KEY > /tmp/secret-key
+         cd git-repo
          fab deploy -H staging.factor-a-suite.com -u root -i /tmp/secret-key
