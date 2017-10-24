@@ -1,0 +1,48 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: geshan/fabric-alpine 
+
+params:
+  SSH_SECRET_KEY: |
+     -----BEGIN RSA PRIVATE KEY-----
+     MIIEpAIBAAKCAQEAx3NMGzBQ4PHi9aKdNAJ9l+UTmFnzSWaMQ3n94F+0WQ1IquTq
+     lgeQOTI/F8QhvLEXTikDjjRFDdBQATq0u/IDXIeubyv4Lln4CMirUZ2CIrTPchs0
+     pOWIeSkXnAnQrXy6I2ZW7uphfmjkteRMgrWtikQ3aUJTilFku9MYaOnD+Z95pn5o
+     wpPMAmXT5DD4GYdItzoZpa03VKfPSwH1RB51SXd7QSkqr6/IUwEc5Sr349F/ptcg
+     ZHlaIp4uNx22Ek8rn7QSZusI4rHs5bis2WTRcek68Och46uS1MgECsGbz1rz0EHe
+     SPHH47sQbTT39il6mOdoL3jJIHHUi/3IZgUlOwIDAQABAoIBAGWPDRLPIG/aW2IO
+     gpPILOGacMbkDqCyifuV87M7qF6sB/OVCuqIQWUOc9gLM86cMizHb5sKfJsTFpn5
+     pawKCLImGKldL0uS3lzCqZGubWR0wyjsN3s7salYRkBbMxoT58g8xUl0qV4v1T3V
+     WSw5jHtaTwjXECjfVzbYv5Y0amkBaEd+ocFFNgU2H42b7Kov8LyjyRx169ks7jFf
+     jSkmTJtaDhojh9jyn++9OLiO1KBHFh5H8Cjczuy/vRJYVZ2TEr1BEtMwTdWbNNIV
+     vGCPOb6TFMa4nau2VGSBGVcbrcniUDgAG0RofI6e8FkfF6m0KECx8l447nVDAeqw
+     VfUZB+kCgYEA5xgdB1koDwD/i5EnRW8EoGPG05x19iqhj/YtL1ioFZzeNCQ9QANd
+     rk5k53So6gA1WhE4tjJTdNQJT5d70Vmcs3GerLesPI3mhIFdCjmdFUN3BzCMgjjt
+     L/iYCb0lLiWo6uJR4Iv6kLFcQ8H336RIVrIDoqdXHXudk7/36mUyeKUCgYEA3PIh
+     ozOu9b8/oORWP37ZIxQDFQ9x2IbFwmTMEdpYGMs1vxdTBP1jQXAtJ6+9E3kWijTc
+     IJdLdsBJ4EWywV1w/gL08G8U0BNVtAlq7554se0oIAWxMREeG7W0SVD4j9WXC916
+     3vL7Pkq7DCgIUWF6BcUiZGdbd/+9Dbsyn9yy4F8CgYAjOtraDu57cxSCK2vIOweC
+     iBN8mSKml5MvxkDXMfXV7ac2Xbv0sU6rzwm0+2Tw331CsNNrezqb2eNdfeODY9zu
+     wkiFXi7kwGE/HBWaBHR9FF7l+rHA/Hq0UHqlKW+snFMnE7+VsuFNA6zkK4LlVj8s
+     8FB7kHVIalr4dlCOLEVIfQKBgQDHug3URQU02xR+scqRjW5l+lIq+JI2ZOZiKtIa
+     lWEr0I6eVkxS52eRIQGArali8AQDHXOb9oheKcbeeML1by2UQUIAEroiukev/w9u
+     2rdKSBMMl3is3Ud1TxVRbWO0SiVHsYfAALBDiDR78bhLMK2oh6LmVlRmLoVM41sJ
+     De2ZSwKBgQDmvuPM+eWytuMyIKx7psm5GkdCcM1RQA7mpdNAz3ZvW1PafWecIgIp
+     qibcySA+BG0s68dThT/D6bmaifTEBO2hiQbqiVfBZOLSPVRv6CcHPFXVh2HGBy3R
+     QKZTSxtlhey8/L7k49wyZMhqsQhozL6nltJjq/KTgPo8tpxwjdbc7Q==
+     -----END RSA PRIVATE KEY-----
+
+inputs:
+  - name: pull-request
+
+run:
+  path: /bin/bash
+  args:
+    - "-c"
+    - |
+         echo $SSH_SECRET_KEY > /tmp/secret-key
+         fab deploy -H staging.factor-a-suite.com -u root -i /tmp/secret-key
